@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ethos Safety Counter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+      color: #006b4f;
+      text-align: center;
+      padding: 40px;
+    }
+    .logo {
+      max-width: 200px;
+      margin: 20px auto;
+    }
+    .counter {
+      font-size: 48px;
+      font-weight: bold;
+      margin-top: 40px;
+    }
+    .label {
+      font-size: 24px;
+      margin-top: 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo.jpg" alt="Ethos Pet Brands Logo" class="logo">
+  <div class="counter" id="daysSafe">Loading...</div>
+  <div class="label">Days Without an Incident</div>
+  <div class="counter" id="monthsSafe">Loading...</div>
+  <div class="label">Months Without an Incident</div>
+
+  <script>
+    const lastIncident = new Date("2020-01-01T00:00:00");
+    const today = new Date();
+    const diffTime = Math.abs(today - lastIncident);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const diffMonths = (diffDays / 30.44).toFixed(1);
+
+    document.getElementById("daysSafe").textContent = diffDays.toLocaleString();
+    document.getElementById("monthsSafe").textContent = diffMonths;
+  </script>
+</body>
+</html>
