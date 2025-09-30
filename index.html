@@ -13,16 +13,16 @@
       padding: 40px;
     }
     .logo {
-      max-width: 200px;
+      max-width: 400px;
       margin: 20px auto;
     }
     .counter {
-      font-size: 48px;
+      font-size: 96px;
       font-weight: bold;
       margin-top: 40px;
     }
     .label {
-      font-size: 24px;
+      font-size: 32px;
       margin-top: 10px;
       color: #333;
     }
@@ -36,7 +36,7 @@
   <div class="label">Months Without an Incident</div>
 
   <script>
-    const lastIncident = new Date("2020-01-01T00:00:00");
+    const lastIncident = new Date("2020-02-05T00:00:00");
     const today = new Date();
     const diffTime = Math.abs(today - lastIncident);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
