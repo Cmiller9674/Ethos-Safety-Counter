@@ -26,24 +26,48 @@
       margin-top: 10px;
       color: #333;
     }
+    .section {
+      margin-bottom: 60px;
+    }
   </style>
 </head>
 <body>
   <img src="logo.jpg" alt="Ethos Pet Brands Logo" class="logo">
-  <div class="counter" id="daysSafe">Loading...</div>
-  <div class="label">Days Without an Incident</div>
-  <div class="counter" id="monthsSafe">Loading...</div>
-  <div class="label">Months Without an Incident</div>
+
+  <!-- Warehouse Section -->
+  <div class="section">
+    <div class="counter" id="warehouseDays">Loading...</div>
+    <div class="label">Warehouse: Days Without an Incident</div>
+    <div class="counter" id="warehouseMonths">Loading...</div>
+    <div class="label">Warehouse: Months Without an Incident</div>
+  </div>
+
+  <!-- Site Section -->
+  <div class="section">
+    <div class="counter" id="siteDays">Loading...</div>
+    <div class="label">Site: Days Without an Incident</div>
+    <div class="counter" id="siteMonths">Loading...</div>
+    <div class="label">Site: Months Without an Incident</div>
+  </div>
 
   <script>
-    const lastIncident = new Date("2020-02-05T00:00:00");
-    const today = new Date();
-    const diffTime = Math.abs(today - lastIncident);
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    const diffMonths = (diffDays / 30.44).toFixed(1);
+    // Last incident dates (update these as needed)
+    const lastWarehouseIncident = new Date("2020-02-05T00:00:00"); // Original date
+    const lastSiteIncident = new Date("2023-11-15T00:00:00");      // Example date for Site
 
-    document.getElementById("daysSafe").textContent = diffDays.toLocaleString();
-    document.getElementById("monthsSafe").textContent = diffMonths;
+    function updateCounter(lastIncident, daysId, monthsId) {
+      const today = new Date();
+      const diffTime = Math.abs(today - lastIncident);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const diffMonths = (diffDays / 30.44).toFixed(1);
+
+      document.getElementById(daysId).textContent = diffDays.toLocaleString();
+      document.getElementById(monthsId).textContent = diffMonths;
+    }
+
+    // Update both counters
+    updateCounter(lastWarehouseIncident, "warehouseDays", "warehouseMonths");
+    updateCounter(lastSiteIncident, "siteDays", "siteMonths");
   </script>
 </body>
 </html>
