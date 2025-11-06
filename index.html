@@ -11,49 +11,69 @@
       color: #006b4f;
       text-align: center;
       padding: 40px;
+      margin: 0;
     }
     .logo {
       max-width: 400px;
       margin: 20px auto;
     }
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .section {
+      flex: 1;
+      min-width: 300px;
+    }
     .counter {
       font-size: 96px;
       font-weight: bold;
-      margin-top: 40px;
+      margin: 20px 0 10px;
+      line-height: 1;
     }
     .label {
-      font-size: 32px;
-      margin-top: 10px;
+      font-size: 28px;
+      margin: 8px 0;
       color: #333;
     }
-    .section {
-      margin-bottom: 60px;
+    .section-title {
+      font-size: 36px;
+      font-weight: bold;
+      color: #006b4f;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
   <img src="logo.jpg" alt="Ethos Pet Brands Logo" class="logo">
 
-  <!-- Warehouse Section -->
-  <div class="section">
-    <div class="counter" id="warehouseDays">Loading...</div>
-    <div class="label">Warehouse: Days Without an Incident</div>
-    <div class="counter" id="warehouseMonths">Loading...</div>
-    <div class="label">Warehouse: Months Without an Incident</div>
-  </div>
+  <div class="container">
+    <!-- Site Section (Left) -->
+    <div class="section">
+      <div class="section-title">Site</div>
+      <div class="counter" id="siteDays">Loading...</div>
+      <div class="label">Days Without an Incident</div>
+      <div class="counter" id="siteMonths">Loading...</div>
+      <div class="label">Months Without an Incident</div>
+    </div>
 
-  <!-- Site Section -->
-  <div class="section">
-    <div class="counter" id="siteDays">Loading...</div>
-    <div class="label">Site: Days Without an Incident</div>
-    <div class="counter" id="siteMonths">Loading...</div>
-    <div class="label">Site: Months Without an Incident</div>
+    <!-- Warehouse Section (Right) -->
+    <div class="section">
+      <div class="section-title">Warehouse</div>
+      <div class="counter" id="warehouseDays">Loading...</div>
+      <div class="label">Days Without an Incident</div>
+      <div class="counter" id="warehouseMonths">Loading...</div>
+      <div class="label">Months Without an Incident</div>
+    </div>
   </div>
 
   <script>
-    // Last incident dates (update these as needed)
-    const lastWarehouseIncident = new Date("2020-02-05T00:00:00"); // Original date
-    const lastSiteIncident = new Date("2023-11-15T00:00:00");      // Example date for Site
+    // Update these dates as needed
+    const lastSiteIncident = new Date("2023-11-15T00:00:00");      // Change to actual Site incident
+    const lastWarehouseIncident = new Date("2020-02-05T00:00:00"); // Warehouse incident
 
     function updateCounter(lastIncident, daysId, monthsId) {
       const today = new Date();
@@ -66,8 +86,8 @@
     }
 
     // Update both counters
-    updateCounter(lastWarehouseIncident, "warehouseDays", "warehouseMonths");
     updateCounter(lastSiteIncident, "siteDays", "siteMonths");
+    updateCounter(lastWarehouseIncident, "warehouseDays", "warehouseMonths");
   </script>
 </body>
 </html>
