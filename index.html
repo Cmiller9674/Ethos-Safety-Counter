@@ -70,24 +70,37 @@
     </div>
   </div>
 
-  <script>
-    // Update these dates as needed
-    const lastSiteIncident = new Date("2025-12-18T00:00:00");      // Change to actual Site incident
-    const lastWarehouseIncident = new Date("2025-12-18T00:00:00"); // Warehouse incident
+<script>
+  async function loadIncidentDates() {
+    try {
+      const response = await fetch("incident.json");
+      const data = await response.json();
 
-    function updateCounter(lastIncident, daysId, monthsId) {
-      const today = new Date();
-      const diffTime = Math.abs(today - lastIncident);
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-      const diffMonths = (diffDays / 30.44).toFixed(1);
+      const lastWarehouseIncident = new Date(data.lastWarehouseIncident);
+      const lastSiteIncident = new Date(data.lastSiteIncident);
 
-      document.getElementById(daysId).textContent = diffDays.toLocaleString();
-      document.getElementById(monthsId).textContent = diffMonths;
+      updateCounter(lastSiteIncident, "siteDays", "siteMonths");
+      updateCounter(lastWarehouseIncident, "warehouseDays", "warehouseMonths");
+
+    } catch (error) {
+      console.error("Error loading incident dates:", error);
     }
+  }
 
-    // Update both counters
-    updateCounter(lastSiteIncident, "siteDays", "siteMonths");
-    updateCounter(lastWarehouseIncident, "warehouseDays", "warehouseMonths");
-  </script>
+  function updateCounter(lastIncident, daysId, monthsId) {
+    const today = new Date();
+    const diffTime = today - lastIncident;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const diffMonths = (diffDays / 30.44).toFixed(1);
+
+    document.getElementById(daysId).textContent = diffDays.toLocaleString();
+    document.getElementById(monthsId).textContent = diffMonths;
+  }
+
+  loadIncidentDates();
+
+  // Optional: auto-refresh every minute
+  setInterval(loadIncidentDates, 60000);
+</script>
 </body>
 </html>
