@@ -6,84 +6,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background-color: #ffffff;
-      font-family: Arial, sans-serif;
-      color: #006b4f;
-      text-align: center;
-      padding: 40px;
-      margin: 0;
-    }
-    .logo {
-      max-width: 400px;
-      margin: 20px auto;
-    }
-    .container {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-    .section {
-      flex: 1;
-      min-width: 300px;
-    }
-    .counter {
-      font-size: 96px;
-      font-weight: bold;
-      margin: 20px 0 10px;
-      line-height: 1;
-    }
-    .label {
-      font-size: 28px;
-      margin: 8px 0;
-      color: #333;
-    }
-    .section-title {
-      font-size: 36px;
-      font-weight: bold;
-      color: #006b4f;
-      margin-bottom: 20px;
-    }
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  color: #006b4f;
+  text-align: center;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo {
+  max-width: 450px;
+  margin: 0 auto 30px;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.counter {
+  font-size: 160px;
+  font-weight: bold;
+  line-height: 1;
+  margin: 10px 0;
+}
+
+.months {
+  font-size: 100px;
+}
+
+.label {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #333;
+}
   </style>
 </head>
 <body>
   <img src="logo.jpg" alt="Ethos Pet Brands Logo" class="logo">
 
-  <div class="container">
-    <!-- Site Section (Left) -->
-    <div class="section">
-      <div class="section-title">Site</div>
-      <div class="counter" id="siteDays">Loading...</div>
-      <div class="label">Days Without an Incident</div>
-      <div class="counter" id="siteMonths">Loading...</div>
-      <div class="label">Months Without an Incident</div>
-    </div>
+  <div class="center-container">
+    <div class="section-title">Site</div>
 
-    <!-- Warehouse Section (Right) -->
-    <div class="section">
-      <div class="section-title">Warehouse</div>
-      <div class="counter" id="warehouseDays">Loading...</div>
-      <div class="label">Days Without an Incident</div>
-      <div class="counter" id="warehouseMonths">Loading...</div>
-      <div class="label">Months Without an Incident</div>
-    </div>
+    <div class="counter" id="siteDays">Loading...</div>
+    <div class="label">Days Without an Incident</div>
+
+    <div class="counter months" id="siteMonths">Loading...</div>
+    <div class="label">Months Without an Incident</div>
   </div>
-
 <script>
   async function loadIncidentDates() {
     try {
       const response = await fetch("incident.json");
       const data = await response.json();
 
-      const lastWarehouseIncident = new Date(data.lastWarehouseIncident);
       const lastSiteIncident = new Date(data.lastSiteIncident);
 
       updateCounter(lastSiteIncident, "siteDays", "siteMonths");
-      updateCounter(lastWarehouseIncident, "warehouseDays", "warehouseMonths");
 
     } catch (error) {
       console.error("Error loading incident dates:", error);
+      document.getElementById("siteDays").textContent = "Error";
+      document.getElementById("siteMonths").textContent = "Error";
     }
   }
 
@@ -98,8 +92,6 @@
   }
 
   loadIncidentDates();
-
-  // Optional: auto-refresh every minute
   setInterval(loadIncidentDates, 60000);
 </script>
 </body>
